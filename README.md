@@ -1,6 +1,6 @@
 # EY_aspect_based_sentiment_analysis
-Funkcjonalności:
-  •	Wczytywanie od użytkownika hashtgów do analizy i parametrów takich jak:
+Funkcjonalności:\\
+  •	Wczytywanie od użytkownika hashtgów do analizy i parametrów takich jak:\\
     o	Czas przechowywania wstecz
     o	Odświeżanie hashtagów ( maximum 6,5 dnia)
   •	Wczytywanie tweetów z api twittera do bazy danych (7 dni wstecz)
