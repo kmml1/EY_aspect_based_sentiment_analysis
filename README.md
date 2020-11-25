@@ -2,13 +2,8 @@
 Funkcjonalności:
 ```
 •	Wczytywanie od użytkownika hashtgów do analizy i parametrów takich jak:
-```
-
-```
            o	Czas przechowywania wstecz
            o	Odświeżanie hashtagów ( maximum 6,5 dnia)
-```
-```  
 •	Wczytywanie tweetów z api twittera do bazy danych (7 dni wstecz)
 •	Przechowywanie tweetów przez określoną przez użytkownika ilość dni
 •	Analiza sentymentu na przestrzeni czasu 
