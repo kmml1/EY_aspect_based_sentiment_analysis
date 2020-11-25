@@ -28,3 +28,6 @@ Harmonogram:
 •	Generowanie wyresów w Power BI
 •	Gotowa Aplikacja webowa
 ```
+Diagram architektury
+
+![Diagram architektury](Diagram_architektury.png)
