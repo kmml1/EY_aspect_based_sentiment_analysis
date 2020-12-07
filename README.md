@@ -31,7 +31,7 @@ Damian Wróblewski
 ![Diagram architektury](Diagram_architektury.png)
 
 ### Harmonogram:
-•	Działające połączenie api twittera z bazą danych  
+•	Pobieranie i przetwarzanie danych z Twitter API, baza danych 
 •	Połączenie modelu analizy sentymentu ( cognitive services sentiment text analysis ) z bazą danych  
-•	Generowanie wyresów w Power BI  
+•	Generowanie wykresów w Power BI, prezentacja wyników analizy
 •	Gotowa Aplikacja webowa  
