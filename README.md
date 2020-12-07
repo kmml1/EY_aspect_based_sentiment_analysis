@@ -32,6 +32,6 @@ Damian Wróblewski
 
 ### Harmonogram:
 •	Pobieranie i przetwarzanie danych z Twitter API, baza danych - 21.12  
-•	Połączenie modelu analizy sentymentu ( cognitive services sentiment text analysis ) z bazą danych - 4.01
-•	Generowanie wykresów w Power BI, prezentacja wyników analizy - 14.01
-•	Gotowa Aplikacja webowa  - 28.01
+•	Połączenie modelu analizy sentymentu ( cognitive services sentiment text analysis ) z bazą danych - 4.01  
+•	Generowanie wykresów w Power BI, prezentacja wyników analizy - 14.01  
+•	Gotowa Aplikacja webowa  - 28.01  
