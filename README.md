@@ -20,11 +20,12 @@ Damian Wróblewski
 - odświeżanie wykresów w aplikacji na podstawie parametru odświeżania hashtagu  
 
 ## Stos technologiczny:
-- java spring  
+- Python (Flask)  
 - mysql  
 - VM z systemem linux  
 - Power BI  
 - Azure  
+- HTML, CSS, JS
 
 ## Architektura
 ![Diagram architektury](Diagram_architektury.png)
