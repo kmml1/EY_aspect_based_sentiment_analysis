@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/ebd3be80-0771-49c3-b113-7536b659e4ef/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/SentimentAnalysisWebApp",
+    "appService.deploySubpath": "."
+}
