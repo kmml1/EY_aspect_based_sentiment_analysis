@@ -99,4 +99,4 @@ def test():
     table = select("TEST3")
     print(table.pop(0)[0])
     drop('TEST3')
-test()
+#test()
