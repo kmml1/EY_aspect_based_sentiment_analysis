@@ -1,12 +1,15 @@
 import pyodbc
+import credentials
+
 
 def select(table):
     select = "SELECT * FROM "+ table
-    server = 'tcp:twitterstorage.database.windows.net'
-    database = 'TwitterStorage'
-    username = 'lukasikb'
-    password = 'Okon123!'   
-    driver= '{SQL Server}'
+
+    server = credentials.server
+    database = credentials.database
+    username = credentials.username
+    password = credentials.password 
+    driver = credentials.driver
 
     with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
         with conn.cursor() as cursor:
@@ -20,11 +23,11 @@ def select(table):
 
 def query(query):
 
-    server = 'tcp:twitterstorage.database.windows.net'
-    database = 'TwitterStorage'
-    username = 'lukasikb'
-    password = 'Okon123!'   
-    driver= '{SQL Server}'
+    server = credentials.server
+    database = credentials.database
+    username = credentials.username
+    password = credentials.password 
+    driver = credentials.driver
 
     with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
         with conn.cursor() as cursor:
@@ -55,7 +58,8 @@ def createController():
     query(string)
 
 def test():
-    create('TEST')
+
+    """create('TEST')
     insert('TEST','twit1','1.11.2021',-1)
     insert('TEST','twit2','2.11.2021',1)
     insert('TEST','twit3','3.11.2021',1)
@@ -88,4 +92,11 @@ def test():
 
     table = select("CONTROLLER")
     print(table.pop(0)[0])
+    print(table.pop(0)[0])"""
+
+    create('TEST3')
+    insert('TEST3','test','11.10.2021',1)
+    table = select("TEST3")
     print(table.pop(0)[0])
+    drop('TEST3')
+test()

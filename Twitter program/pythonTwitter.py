@@ -2,9 +2,10 @@
 from twython import Twython
 import pandas as pd
 import json
+import credentials
 
 CONSUMER_KEY= "cFaUmZoT5TCHEplyb99WfGYmP"
-CONSUMER_SECRET="I8tSyQv4g9HoEdkpZndsiRfVkmc6mjpLNLR9YHnBwraWG1WPk8"
+CONSUMER_SECRET= "I8tSyQv4g9HoEdkpZndsiRfVkmc6mjpLNLR9YHnBwraWG1WPk8"
 
 def min(s,low):
     if (low < s):
