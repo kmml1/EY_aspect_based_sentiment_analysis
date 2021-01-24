@@ -12,7 +12,6 @@ def min(s,low):
         return low         
     else: 
         return s
-
 # Instantiate an object
 python_tweets = Twython(CONSUMER_KEY, CONSUMER_SECRET)
 
@@ -28,7 +27,6 @@ for hashtag in hashtags:
             'tweet_mode': 'extended',
             }
     # Search tweets
-    
     dict_ = { 'date': [], 'text': []}
     for status in python_tweets.search(**query)['statuses']:
     
@@ -47,7 +45,7 @@ for hashtag in hashtags:
         lowest_tmp = None
         while (lowest != lowest_tmp):
             lowest_tmp = lowest
-            query = {'q': '#'+ hashtag,
+            query = {'q': '#'+hashtag,
                     'count': 100,
                     'lang': 'pl',
                     'tweet_mode': 'extended',
