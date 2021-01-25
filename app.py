@@ -34,8 +34,8 @@ def all_hashtags():
     return jsonify(json_out)
 
 
-@app.route('/<id>')
-def landing_page(id):
+@app.route('/<hash_tag>')
+def landing_page(hash_tag):
     if id not in hashtags:
         return {"hash_tag": "invalid"}
     json_out["hash_tag"] = id
@@ -44,12 +44,10 @@ def landing_page(id):
 
 def db_trigger():
     json_out["neutral"] = json_out["neutral"] + 1
-    x = datetime.today()
     global last_update
     last_update = datetime.today()
-    # y = x.replace(day=x.day, hour=0, minute=10, second=0, microsecond=0) + timedelta(days=1)
-    y = x + timedelta(minutes=1)
-    delta_t = y - x
+    y = last_update.replace(day=last_update.day, hour=0, minute=10) + timedelta(days=1)
+    delta_t = y - last_update
     secs = delta_t.total_seconds()
     t = Timer(secs, db_trigger)
     t.start()
