@@ -2,6 +2,9 @@ from flask import Flask
 from flask_cors import CORS
 from flask import jsonify
 
+from datetime import datetime, timedelta
+from threading import Timer
+
 app = Flask(__name__)
 CORS(app)
 
@@ -17,10 +20,12 @@ json_out = {
     "negative": 0,
 }
 
+last_update = datetime.today()
+
 
 @app.route('/')
 def say_hello_world():
-    return {"msg": "Hello Word"}
+    return {"last_update": last_update}
 
 
 @app.route("/global")
@@ -37,15 +42,11 @@ def landing_page(id):
     return jsonify(json_out)
 
 
-from datetime import datetime, timedelta
-from threading import Timer
-
-
 def db_trigger():
-    json_out["positive"] = json_out["positive"] + 1
     x = datetime.today()
-    #    #y = x.replace(day=x.day, hour=1, minute=0, second=0, microsecond=0) + timedelta(seconds=30)
-    y = x + timedelta(seconds=30)
+    global last_update
+    last_update = datetime.today()
+    y = x.replace(day=x.day, hour=0, minute=10, second=0, microsecond=0) + timedelta(minutes=1)
     delta_t = y - x
     secs = delta_t.total_seconds()
     t = Timer(secs, db_trigger)
