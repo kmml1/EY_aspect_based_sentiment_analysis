@@ -13,7 +13,7 @@ strona główna zwraca czas ostatniej aktualizacji danych
 zwraca informacje o wszystkich hashtagach
 
 
-/<id>
+/id
 
 
 po podaniu prawidłowego hashtagu zwraca informację o danych dla niego
