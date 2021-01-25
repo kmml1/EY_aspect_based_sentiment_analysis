@@ -20,7 +20,7 @@ json_out = {
     "negative": 0,
 }
 
-last_update = datetime.today()
+last_update = None
 
 
 @app.route('/')
@@ -43,10 +43,12 @@ def landing_page(id):
 
 
 def db_trigger():
+    json_out["neutral"] = json_out["neutral"] + 1
     x = datetime.today()
     global last_update
     last_update = datetime.today()
-    y = x.replace(day=x.day, hour=0, minute=10, second=0, microsecond=0) + timedelta(minutes=1)
+    # y = x.replace(day=x.day, hour=0, minute=10, second=0, microsecond=0) + timedelta(days=1)
+    y = x + timedelta(minutes=1)
     delta_t = y - x
     secs = delta_t.total_seconds()
     t = Timer(secs, db_trigger)
