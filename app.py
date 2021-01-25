@@ -47,7 +47,7 @@ def hello():
 h4 = "hot16challange"
 
 
-@app.route(h3)
+@app.route(h4)
 def hello():
     return "Hello, World!", h4
 
@@ -55,7 +55,7 @@ def hello():
 h5 = "fitness"
 
 
-@app.route(h3)
+@app.route(h5)
 def hello():
     return "Hello, World!", h5
 
@@ -63,7 +63,7 @@ def hello():
 h6 = "krolowezycia"
 
 
-@app.route(h3)
+@app.route(h6)
 def hello():
     return "Hello, World!", h6
 
@@ -71,7 +71,7 @@ def hello():
 h7 = "kryzys"
 
 
-@app.route(h3)
+@app.route(h7)
 def hello():
     return "Hello, World!", h7
 
@@ -79,7 +79,7 @@ def hello():
 h8 = "ikea"
 
 
-@app.route(h3)
+@app.route(h8)
 def hello():
     return "Hello, World!", h8
 
@@ -87,7 +87,7 @@ def hello():
 h9 = "łódź"
 
 
-@app.route(h3)
+@app.route(h9)
 def hello():
     return "Hello, World!", h9
 
@@ -95,7 +95,7 @@ def hello():
 h10 = "haloween"
 
 
-@app.route(h3)
+@app.route(h10)
 def hello():
     return "Hello, World!", h10
 
@@ -103,7 +103,7 @@ def hello():
 h11 = "kawa"
 
 
-@app.route(h3)
+@app.route(h11)
 def hello():
     return "Hello, World!", h11
 
@@ -111,7 +111,7 @@ def hello():
 h12 = "radom"
 
 
-@app.route(h3)
+@app.route(h12)
 def hello():
     return "Hello, World!", h12
 
@@ -119,7 +119,7 @@ def hello():
 h13 = "karmieniepiersia"
 
 
-@app.route(h3)
+@app.route(h13)
 def hello():
     return "Hello, World!", h13
 
@@ -127,7 +127,7 @@ def hello():
 h14 = "pomidorowa"
 
 
-@app.route(h3)
+@app.route(h14)
 def hello():
     return "Hello, World!", h14
 
@@ -135,7 +135,7 @@ def hello():
 h15 = "COVID19"
 
 
-@app.route(h3)
+@app.route(h15)
 def hello():
     return "Hello, World!", h15
 
@@ -143,7 +143,7 @@ def hello():
 h16 = "nvidia"
 
 
-@app.route(h3)
+@app.route(h16)
 def hello():
     return "Hello, World!", h16
 
@@ -151,7 +151,7 @@ def hello():
 h17 = "poniedziałek"
 
 
-@app.route(h3)
+@app.route(h17)
 def hello():
     return "Hello, World!", h17
 
@@ -159,7 +159,7 @@ def hello():
 h18 = "biedronka"
 
 
-@app.route(h3)
+@app.route(h18)
 def hello():
     return "Hello, World!", h18
 
