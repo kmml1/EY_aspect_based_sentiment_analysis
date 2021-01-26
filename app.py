@@ -58,7 +58,6 @@ def count_twitts(table):
     sum_positive = 0
     sum_neutral = 0
     sum_negative = 0
-
     for day in daily:
         dailyData.append({"date": day, "positive": daily[day]["positive"], "neutral": daily[day]["neutral"],
                           "negative": daily[day]["negative"]})
@@ -85,7 +84,7 @@ def fetch_data(tag):
         randomTweets = dict()
         randomTweets["positive"] = " "
         randomTweets["neutral"] = " "
-        randomTweets["positive"] = " "
+        randomTweets["negative"] = " "
         is_positive = False
         is_neutral = False
         is_negative = False
