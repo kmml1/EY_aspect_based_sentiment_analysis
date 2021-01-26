@@ -42,7 +42,7 @@ def all_hashtags():
 
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
-    if id not in hashtags:
+    if hash_tag not in hashtags:
         return {"hash_tag": "invalid"}
     return jsonify(fetch_data(hash_tag))
 
