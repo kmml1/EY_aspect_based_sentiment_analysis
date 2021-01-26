@@ -58,8 +58,9 @@ def say_hello_world():
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
     if hash_tag == "global":
-        if hash_tag not in hashtags:
-            return {"hash_tag": "invalid"}
+        return jsonify(fetch_data("global"))
+    if hash_tag not in hashtags:
+        return {"hash_tag": "invalid"}
     return jsonify(fetch_data(hash_tag))
 
 
@@ -71,11 +72,11 @@ def db_trigger():
     global first_run
     if not first_run:
         global last_update
-        last_update = time_now
+        last_update = datetime.today()
         # refresh db
         pass
     global planned_update
-    planned_update = last_update.replace(day=last_update.day, hour=4, minute=30) + timedelta(days=1)
+    planned_update = time_now.replace(day=time_now.day, hour=4, minute=30) + timedelta(days=1)
     delta_t = planned_update - time_now
     secs = delta_t.total_seconds()
     t = Timer(secs, db_trigger)
