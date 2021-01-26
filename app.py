@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask import jsonify
 import time
-
+import sys
 from datetime import datetime, timedelta
 from threading import Timer
 
@@ -61,11 +61,20 @@ def say_hello_world():
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
     app.logger.info('testing info log')
+    print('Hello world!', file=sys.stderr)
     if hash_tag == "global":
         return jsonify(fetch_data("global"))
     if hash_tag not in hashtags:
         return {"hash_tag": "invalid"}
     return jsonify(fetch_data(hash_tag))
+
+
+@app.route('/print')
+def printMsg():
+    app.logger.warning('testing warning log')
+    app.logger.error('testing error log')
+    app.logger.info('testing info log')
+    return "Check your console"
 
 
 first_run = True
