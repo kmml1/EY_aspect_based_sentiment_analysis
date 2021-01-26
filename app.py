@@ -28,7 +28,7 @@ def count_twitts(table):
         date = time.strptime(record[1], "%a %b %d %H:%M:%S %z %Y")
         str_date = str(date.tm_year) + " " + str(date.tm_mon) + " " + str(date.tm_mday)
         if str_date not in daily:
-            daily[str_date] = {"positive": 0, "neutral": 0, "negative": 0 }
+            daily[str_date] = {"positive": 0, "neutral": 0, "negative": 0}
         tmp = record[2]
         if tmp == 1:
             daily[str_date]["positive"] = daily[str_date]["positive"] + 1
@@ -45,6 +45,13 @@ def count_twitts(table):
             if not is_negative:
                 randomTweets["positive"] = record[0]
                 is_negative = True
+
+    if not is_positive:
+        randomTweets["positive"] = " "
+    if not is_neutral:
+        randomTweets["neutral"] = " "
+    if not is_negative:
+        randomTweets["positive"] = " "
 
     dailyData = []
     sum_positive = 0
@@ -63,22 +70,48 @@ def count_twitts(table):
     out["positive"] = sum_positive
     out["neutral"] = sum_neutral
     out["negative"] = sum_negative
+    out["randomTweets"] = randomTweets
+    out["myDaily"] = daily
+
     return out
 
 
 def fetch_data(tag):
     tmp_data = dict()
     if tag == "global":
+        daily = dict()
+
+        tmp_data["positive"] = 0
+        tmp_data["neutral"] = 0
+        tmp_data["negative"] = 0
         for hash_tag in hashtags:
             table = azureDBconnections.select(hash_tag)
-            tmp_data = count_twitts(table)
-            return {}
+            global_data = count_twitts(table)
+
+            tmp_data["positive"] = tmp_data["positive"] + global_data["positive"]
+            tmp_data["neutral"] = tmp_data["neutral"] + global_data["neutral"]
+            tmp_data["negative"] = tmp_data["negative"] + global_data["negative"]
+
+            for day in global_data["myDaily"]:
+                if day not in daily:
+                    daily[day] = {"positive": 0, "neutral": 0, "negative": 0}
+                daily[day]["positive"] = daily[day]["positive"] + global_data[day]["positive"]
+                daily[day]["neutral"] = daily[day]["neutral"] + global_data[day]["neutral"]
+                daily[day]["negative"] = daily[day]["negative"] + global_data[day]["negative"]
+
+        dailyData = []
+        for day in daily:
+            dailyData.append({"date": day, "positive": daily[day]["positive"], "neutral": daily[day]["neutral"],
+                              "negative": daily[day]["negative"]})
+        tmp_data["dailyData"] = dailyData
+
     else:
         table = azureDBconnections.select(tag)
         tmp_data = count_twitts(table)
 
     tmp_data["hashtag"] = tag
-    tmp_data["lastUpdate"] = str(datetime.today().year) + " " + str(datetime.today().month) + " " + str(datetime.today().day)
+    tmp_data["lastUpdate"] = str(datetime.today().year) + " " + str(datetime.today().month) + " " + str(
+        datetime.today().day)
     return tmp_data
 
 
