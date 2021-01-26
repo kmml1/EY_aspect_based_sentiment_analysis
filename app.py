@@ -123,8 +123,6 @@ def fetch_data(tag):
                               "negative": daily[day]["negative"]})
         tmp_data["dailyData"] = dailyData
         tmp_data["randomTweets"] = randomTweets
-
-
     else:
         table = azureDBconnections.select(tag)
         tmp_data = count_twitts(table)
