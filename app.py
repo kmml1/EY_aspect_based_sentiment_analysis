@@ -9,6 +9,7 @@ from threading import Timer
 from twitter_program import azureDBconnections
 
 last_update = None
+planned_update = None
 
 app = Flask(__name__)
 CORS(app)
@@ -51,7 +52,7 @@ def fetch_data(tag):
 
 @app.route('/')
 def say_hello_world():
-    return {"last_update_triggered": last_update}
+    return {"last_update_triggered": last_update, "planned_update": planned_update}
 
 
 @app.route('/<hash_tag>')
@@ -62,14 +63,24 @@ def landing_page(hash_tag):
     return jsonify(fetch_data(hash_tag))
 
 
+first_run = True
+
+
 def db_trigger():
-    global last_update
-    last_update = datetime.today()
-    y = last_update.replace(day=last_update.day, hour=0, minute=10) + timedelta(days=1)
-    delta_t = y - last_update
+    time_now = datetime.today()
+    global first_run
+    if not first_run:
+        global last_update
+        last_update = time_now
+        # refresh db
+        pass
+    global planned_update
+    planned_update = last_update.replace(day=last_update.day, hour=4, minute=30) + timedelta(days=1)
+    delta_t = planned_update - time_now
     secs = delta_t.total_seconds()
     t = Timer(secs, db_trigger)
     t.start()
+    first_run = False
 
 
 db_trigger()
