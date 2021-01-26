@@ -14,18 +14,17 @@ def min(s,low):
     else: 
         return s
 
-
-def refreshDB():
+def refreshDB(i):
     CONSUMER_KEY= credentials.CONSUMER_KEY
     CONSUMER_SECRET= credentials.CONSUMER_SECRET
     python_tweets = Twython(CONSUMER_KEY, CONSUMER_SECRET)
-    #hashtags = ["kwarantanna", "vege", "IgaŚwiatek","hot16challange","fitness","krolowezycia","kryzys","ikea","łódź","haloween","kawa","radom","karmieniepiersia","pomidorowa","COVID19","nvidia","poniedziałek","biedronka"]
 
-    hashtags = ["testowanie"]
+    hashtags = ["kwarantanna", "vege", "IgaŚwiatek","hot16challange","fitness","krolowezycia","kryzys","ikea","łódź","haloween","kawa","radom","karmieniepiersia","pomidorowa","COVID19","nvidia","poniedziałek","biedronka"]
     my_date = datetime.date.today()
-    my_date = my_date - datetime.timedelta(days=1)
+    my_date = my_date - datetime.timedelta(days=i)
     day = str(calendar.day_name[my_date.weekday()])[0:3]
-
+    for hashtag in hashtags:
+        azureDBconnections.create(hashtag)
     for hashtag in hashtags:
 
         lowest = None
@@ -37,7 +36,6 @@ def refreshDB():
                 }
         # Search tweets
         
-        dict_ = { 'id': [], 'date': [], 'text': []}
         lowest = None
         lowest_tmp = 1
         while (lowest != lowest_tmp):
@@ -54,9 +52,7 @@ def refreshDB():
                         s = status['full_text'].replace(",",";")
                     else:
                         s = status['full_text'].replace(",",";")
-                        dict_['text'].append(s) 
-                        dict_['date'].append(status['created_at'])
-                        dict_['id'].append(status['id'])
+                        s = s.replace("'","")
                         tmp = sentimentModel.sentiment(s)
                         sentiment = 0
                         if (tmp < 0.5 ):
@@ -70,6 +66,3 @@ def refreshDB():
                     lowest =  status['id']
                 else:
                     lowest = min(status['id'],lowest)
-
-        df = pd.DataFrame(dict_)
-        df.to_csv('saved_tweets_'+ hashtag +'.csv')

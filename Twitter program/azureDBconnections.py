@@ -1,10 +1,11 @@
 import pyodbc
 import credentials
+import zamianaZnakow as zz
 
 
 def select(table):
+    table = zz.odkoduj(table)
     select = "SELECT * FROM "+ table
-
     server = credentials.server
     database = credentials.database
     username = credentials.username
@@ -22,7 +23,6 @@ def select(table):
             return lista
 
 def query(query):
-
     server = credentials.server
     database = credentials.database
     username = credentials.username
@@ -31,21 +31,28 @@ def query(query):
 
     with pyodbc.connect('DRIVER='+driver+';SERVER='+server+';PORT=1433;DATABASE='+database+';UID='+username+';PWD='+ password) as conn:
         with conn.cursor() as cursor:
-            cursor.execute(query)
+            try:
+                cursor.execute(query)
+            except:
+                print(query)
             
 def create(table):
+    table = zz.odkoduj(table)
     string = "if not exists (select * from sysobjects where name='" + table +"' and xtype='U') CREATE TABLE " + table +" (content ntext, date ntext,sentiment int);"
     query(string)
 
 def insert(table,content,date,sentiment):
-    string = "INSERT INTO " + table + " (content, date, sentiment) VALUES ('"+ content + "','"+ date + "','"+ str(sentiment) + "');"
+    table = zz.odkoduj(table)
+    string = "INSERT INTO [" + table + "] (content, date, sentiment) VALUES ('"+ content + "','"+ date + "','"+ str(sentiment) + "');"
     query(string)
 
 def drop(table):
+    table = zz.odkoduj(table)
     string = "if exists (select * from sysobjects where name='" + table +"' and xtype='U') DROP TABLE " + table +";"
     query(string)
 
 def deleteFromController(table,name):
+    table = zz.odkoduj(table)
     string = "DELETE FROM " + table +" WHERE name = '" + name + "';"
     query(string)
 
@@ -57,8 +64,17 @@ def createController():
     string = "if not exists (select * from sysobjects where name='CONTROLLER' and xtype='U') CREATE TABLE CONTROLLER (name ntext);"
     query(string)
 
-def test():
+def resetAll():
+    hashtags = ["kwarantanna", "vege","IgaŚwiatek","hot16challange","fitness","krolowezycia","kryzys","ikea","łódź","haloween","kawa","radom","karmieniepiersia","pomidorowa","COVID19","nvidia","poniedziałek","biedronka"]
+    for hashtag in hashtags:
+        drop(hashtag)
+        create(hashtag)
 
+def resetHashtag(hashtag):
+    drop(hashtag)
+    create(hashtag)
+
+def test():
     """create('TEST')
     insert('TEST','twit1','1.11.2021',-1)
     insert('TEST','twit2','2.11.2021',1)
@@ -94,9 +110,15 @@ def test():
     print(table.pop(0)[0])
     print(table.pop(0)[0])"""
 
-    create('TEST3')
-    insert('TEST3','test','11.10.2021',1)
-    table = select("TEST3")
-    print(table.pop(0)[0])
-    drop('TEST3')
-#test()
+    #create('testowanie')
+    #create('TEST3')
+    #insert('TEST3','test','11.10.2021',1)
+    #table = db.select("testowanie")
+    #rekord = table.pop(0)
+    #print(rekord[0]) # tekst 
+    #print(rekord[1]) # data 
+    #print(rekord[2]) # sentyment
+    hashtags = ["kwarantanna", "vege","IgaŚwiatek","hot16challange","fitness","krolowezycia","kryzys","ikea","łódź","haloween","kawa","radom","karmieniepiersia","pomidorowa","COVID19","nvidia","poniedziałek","biedronka"]
+    for hashtag in hashtags:
+        table = select(hashtag)
+        print(hashtag +" " + str(len(table)))
