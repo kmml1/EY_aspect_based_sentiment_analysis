@@ -1,5 +1,7 @@
 # EY_aspect_based_sentiment_analysis
 
+[Live site](https://mango-sea-00caa9c03.azurestaticapps.net)
+
 ## Zespół
 **Kamil Kowieski**  
 Bartłomiej Łukasik  
