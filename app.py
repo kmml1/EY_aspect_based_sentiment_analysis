@@ -25,8 +25,18 @@ json_out = {
 }
 
 
+def count_twitts(table):
+    pass
+
+
 def fetch_data(tag):
-    table = azureDBconnections.select(tag)
+    tmp_data = []
+    if tag == "global":
+        for hash_tag in hashtags:
+            table = azureDBconnections.select(tag)
+
+    else:
+        table = azureDBconnections.select(tag)
     return table
 
 
@@ -37,14 +47,16 @@ def say_hello_world():
 
 @app.route("/global")
 def all_hashtags():
-    return jsonify(fetch_data("global"))
+    #return jsonify(fetch_data("global")
+    return "global"
 
 
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
     if hash_tag not in hashtags:
         return {"hash_tag": "invalid"}
-    return jsonify(fetch_data(hash_tag))
+    #return jsonify(fetch_data(hash_tag))
+    return fetch_data(hash_tag)
 
 
 def db_trigger():

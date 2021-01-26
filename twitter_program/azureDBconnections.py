@@ -140,4 +140,4 @@ def test():
 def abc():
     return select("COVID19")
 
-print(abc()[0][1])
+print(abc()[1][1])
