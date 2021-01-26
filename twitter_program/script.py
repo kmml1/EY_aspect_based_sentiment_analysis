@@ -39,7 +39,7 @@ def refreshDB(i):
 
         lowest = None
         lowest_tmp = 1
-        while (lowest != lowest_tmp):
+        while lowest != lowest_tmp:
             lowest_tmp = lowest
             query = {'q': '#' + hashtag,
                      'lang': 'pl',
@@ -48,7 +48,7 @@ def refreshDB(i):
                      }
             for status in python_tweets.search(**query)['statuses']:
 
-                if (str(status['created_at'])[0:3] == day and status['id'] != lowest):
+                if str(status['created_at'])[0:3] == day and status['id'] != lowest:
                     if 'retweeted_status' in status.keys():
                         s = status['full_text'].replace(",", ";")
                     else:

@@ -40,7 +40,10 @@ def fetch_data(tag):
     tmp_data = []
     if tag == "global":
         for hash_tag in hashtags:
+            app.logger.info('starting connection')
             table = azureDBconnections.select(hash_tag)
+
+            app.logger.info('connection end')
             counted = count_twitts(table)
             tmp_data.append({"hash_tag": hash_tag, "data": counted})
     else:
@@ -57,6 +60,7 @@ def say_hello_world():
 
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
+    app.logger.info('testing info log')
     if hash_tag == "global":
         return jsonify(fetch_data("global"))
     if hash_tag not in hashtags:
