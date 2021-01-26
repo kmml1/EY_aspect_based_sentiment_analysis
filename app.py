@@ -131,7 +131,7 @@ def fetch_data(tag):
     tmp_data["hashtag"] = tag
     tmp_data["lastUpdate"] = str(datetime.today().year) + " " + str(datetime.today().month) + " " + str(
         datetime.today().day)
-    return tmp_data.pop("myDaily")
+    return tmp_data
 
 
 @app.route('/')
