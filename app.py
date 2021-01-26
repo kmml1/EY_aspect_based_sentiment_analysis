@@ -5,6 +5,10 @@ from flask import jsonify
 from datetime import datetime, timedelta
 from threading import Timer
 
+from twitter_program import azureDBconnections
+
+last_update = None
+
 app = Flask(__name__)
 CORS(app)
 
@@ -20,30 +24,32 @@ json_out = {
     "negative": 0,
 }
 
-last_update = None
+
+def fetch_data(tag):
+    table = azureDBconnections.select(tag)
+    return table
 
 
 @app.route('/')
 def say_hello_world():
-    return {"last_update": last_update}
+    return {"last_update_triggered": last_update}
 
 
 @app.route("/global")
 def all_hashtags():
-    json_out["hash_tag"] = "global"
-    return jsonify(json_out)
+    return jsonify(fetch_data("global"))
 
 
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
     if id not in hashtags:
         return {"hash_tag": "invalid"}
-    json_out["hash_tag"] = id
-    return jsonify(json_out)
+    return jsonify(fetch_data(hash_tag))
 
 
 def db_trigger():
     json_out["neutral"] = json_out["neutral"] + 1
+
     global last_update
     last_update = datetime.today()
     y = last_update.replace(day=last_update.day, hour=0, minute=10) + timedelta(days=1)

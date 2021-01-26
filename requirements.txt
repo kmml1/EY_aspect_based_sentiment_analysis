@@ -1,2 +1,5 @@
 Flask>=1.0,<=1.1.2
 Flask-Cors==3.0.10
+credentials~=1.1
+pyodbc~=4.0.30
+twython~=3.8.2
