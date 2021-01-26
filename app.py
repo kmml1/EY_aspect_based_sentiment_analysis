@@ -76,6 +76,23 @@ def printMsg():
     app.logger.info('testing info log')
     return "Check your console"
 
+@app.route('/test')
+def testFront():
+    return jsonify(
+        hashtag="pomidorowa",
+        positive=10000,
+        neutral=5000, 
+        negative=7000,
+        lastUpdate=20210126,
+        randomTweets={"positive": "Ale EZ", "neutral": "No prawie", "negative": "K@!@!"},
+        dailyData=[
+            {"date":20210126, "positive":10, "neutral":5, "negative":7},
+            {"date":20210125, "positive":15, "neutral":5, "negative":0},
+            {"date":20210124, "positive":17, "neutral":5, "negative":1},
+            {"date":20210123, "positive":12, "neutral":5, "negative":2},
+            {"date":20210122, "positive":5, "neutral":5, "negative":4}
+        ]
+    )
 
 first_run = True
 
