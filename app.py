@@ -2,7 +2,6 @@ from flask import Flask
 from flask_cors import CORS
 from flask import jsonify
 import time
-import sys
 from datetime import datetime, timedelta
 from threading import Timer
 
@@ -21,28 +20,44 @@ hashtags = ["kwarantanna", "vege", "IgaŚwiatek", "hot16challange", "fitness", "
 
 def count_twitts(table):
     daily = dict()
+    randomTweets = dict()
+    is_positive = False
+    is_neutral = False
+    is_negative = False
     for record in table:
         date = time.strptime(record[1], "%a %b %d %H:%M:%S %z %Y")
-        str_date = str(date.tm_year) + ", " + str(date.tm_mon) + ", " + str(date.tm_mday)
+        str_date = str(date.tm_year) + " " + str(date.tm_mon) + " " + str(date.tm_mday)
         if str_date not in daily:
-            daily[str_date] = {"positive": 0, "neutral": 0, "negative": 0, }
+            daily[str_date] = {"positive": 0, "neutral": 0, "negative": 0 }
         tmp = record[2]
         if tmp == 1:
             daily[str_date]["positive"] = daily[str_date]["positive"] + 1
+            if not is_positive:
+                randomTweets["positive"] = record[0]
+                is_positive = True
         elif tmp == 0:
             daily[str_date]["neutral"] = daily[str_date]["neutral"] + 1
+            if not is_neutral:
+                randomTweets["neutral"] = record[0]
+                is_neutral = True
         elif tmp == -1:
             daily[str_date]["negative"] = daily[str_date]["negative"] + 1
+            if not is_negative:
+                randomTweets["positive"] = record[0]
+                is_negative = True
+
     dailyData = []
     sum_positive = 0
     sum_neutral = 0
     sum_negative = 0
+
     for day in daily:
         dailyData.append({"date": day, "positive": daily[day]["positive"], "neutral": daily[day]["neutral"],
                           "negative": daily[day]["negative"]})
         sum_positive = sum_positive + daily[day]["positive"]
         sum_negative = sum_negative + daily[day]["negative"]
         sum_neutral = sum_neutral + daily[day]["neutral"]
+
     out = dict()
     out["dailyData"] = dailyData
     out["positive"] = sum_positive
@@ -63,7 +78,7 @@ def fetch_data(tag):
         tmp_data = count_twitts(table)
 
     tmp_data["hashtag"] = tag
-    tmp_data["lastUpdate"] = str(datetime.today().year) + str(datetime.today().month) + str(datetime.today().day)
+    tmp_data["lastUpdate"] = str(datetime.today().year) + " " + str(datetime.today().month) + " " + str(datetime.today().day)
     return tmp_data
 
 
