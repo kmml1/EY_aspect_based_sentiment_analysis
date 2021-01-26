@@ -1,5 +1,5 @@
 import pyodbc
-import credentials
+from twitter_program import credentials
 from twitter_program import zamianaZnakow as zz
 
 
@@ -135,3 +135,9 @@ def test():
     for hashtag in hashtags:
         table = select(hashtag)
         print(hashtag + " " + str(len(table)))
+
+
+def abc():
+    return select("COVID19")
+
+print(abc()[0][1])
