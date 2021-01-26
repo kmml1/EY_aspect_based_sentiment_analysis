@@ -43,7 +43,7 @@ def count_twitts(table):
         elif tmp == -1:
             daily[str_date]["negative"] = daily[str_date]["negative"] + 1
             if not is_negative:
-                randomTweets["positive"] = record[0]
+                randomTweets["negative"] = record[0]
                 is_negative = True
 
     if not is_positive:
@@ -51,7 +51,7 @@ def count_twitts(table):
     if not is_neutral:
         randomTweets["neutral"] = " "
     if not is_negative:
-        randomTweets["positive"] = " "
+        randomTweets["negative"] = " "
 
     dailyData = []
     sum_positive = 0
@@ -81,6 +81,14 @@ def fetch_data(tag):
     if tag == "global":
         daily = dict()
 
+        randomTweets = dict()
+        randomTweets["positive"] = " "
+        randomTweets["neutral"] = " "
+        randomTweets["positive"] = " "
+        is_positive = False
+        is_neutral = False
+        is_negative = False
+
         tmp_data["positive"] = 0
         tmp_data["neutral"] = 0
         tmp_data["negative"] = 0
@@ -95,15 +103,27 @@ def fetch_data(tag):
             for day in global_data["myDaily"]:
                 if day not in daily:
                     daily[day] = {"positive": 0, "neutral": 0, "negative": 0}
-                daily[day]["positive"] = daily[day]["positive"] + global_data[day]["positive"]
-                daily[day]["neutral"] = daily[day]["neutral"] + global_data[day]["neutral"]
-                daily[day]["negative"] = daily[day]["negative"] + global_data[day]["negative"]
+                daily[day]["positive"] = daily[day]["positive"] + global_data["myDaily"][day]["positive"]
+                daily[day]["neutral"] = daily[day]["neutral"] + global_data["myDaily"][day]["neutral"]
+                daily[day]["negative"] = daily[day]["negative"] + global_data["myDaily"][day]["negative"]
+
+            if not is_positive and len(global_data["randomTweets"]["positive"]) > 3:
+                randomTweets["positive"] = global_data["randomTweets"]["positive"]
+                is_positive = True
+            if not is_neutral and len(global_data["randomTweets"]["neutral"]) > 3:
+                randomTweets["neutral"] = global_data["randomTweets"]["neutral"]
+                is_neutral = True
+            if not is_negative and len(global_data["randomTweets"]["negative"]) > 3:
+                randomTweets["negative"] = global_data["randomTweets"]["negative"]
+                is_negative = True
 
         dailyData = []
         for day in daily:
             dailyData.append({"date": day, "positive": daily[day]["positive"], "neutral": daily[day]["neutral"],
                               "negative": daily[day]["negative"]})
         tmp_data["dailyData"] = dailyData
+        tmp_data["randomTweets"] = randomTweets
+
 
     else:
         table = azureDBconnections.select(tag)
@@ -112,7 +132,7 @@ def fetch_data(tag):
     tmp_data["hashtag"] = tag
     tmp_data["lastUpdate"] = str(datetime.today().year) + " " + str(datetime.today().month) + " " + str(
         datetime.today().day)
-    return tmp_data
+    return tmp_data.pop("myDaily")
 
 
 @app.route('/')
