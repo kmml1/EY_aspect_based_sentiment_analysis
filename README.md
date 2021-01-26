@@ -2,6 +2,8 @@
 
 [Live site](https://mango-sea-00caa9c03.azurestaticapps.net)
 
+[Front-end repository](https://github.com/damaneks/sentimentAnalysis)
+
 ## Zespół
 **Kamil Kowieski**  
 Bartłomiej Łukasik  
