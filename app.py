@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from threading import Timer
 
 from twitter_program import azureDBconnections
+from twitter_program import script
 
 last_update = None
 planned_update = None
@@ -175,7 +176,7 @@ def db_trigger():
     if not first_run:
         global last_update
         last_update = datetime.today()
-        # refresh db
+        script.refreshDB(1)
         pass
     global planned_update
     planned_update = time_now.replace(day=time_now.day, hour=4, minute=30) + timedelta(days=1)
