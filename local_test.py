@@ -1,17 +1,5 @@
-from flask import Flask
-from flask_cors import CORS
-from flask import jsonify
 import time
-
-from datetime import datetime, timedelta
-from threading import Timer
-
 from twitter_program import azureDBconnections
-
-last_update = None
-
-app = Flask(__name__)
-CORS(app)
 
 hashtags = ["kwarantanna", "vege", "IgaŚwiatek", "hot16challange", "fitness", "krolowezycia", "kryzys", "ikea", "łódź",
             "haloween", "kawa", "radom", "karmieniepiersia", "pomidorowa", "COVID19", "nvidia", "poniedziałek",
@@ -49,27 +37,4 @@ def fetch_data(tag):
     return tmp_data
 
 
-@app.route('/')
-def say_hello_world():
-    return {"last_update_triggered": last_update}
-
-
-@app.route('/<hash_tag>')
-def landing_page(hash_tag):
-    if hash_tag == "global":
-        if hash_tag not in hashtags:
-            return {"hash_tag": "invalid"}
-    return jsonify(fetch_data(hash_tag))
-
-
-def db_trigger():
-    global last_update
-    last_update = datetime.today()
-    y = last_update.replace(day=last_update.day, hour=0, minute=10) + timedelta(days=1)
-    delta_t = y - last_update
-    secs = delta_t.total_seconds()
-    t = Timer(secs, db_trigger)
-    t.start()
-
-
-db_trigger()
+print(fetch_data("kwarantanna"))

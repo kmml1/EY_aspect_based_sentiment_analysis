@@ -3,6 +3,7 @@ from twitter_program import credentials
 from twitter_program import zamianaZnakow as zz
 
 
+
 def select(table):
     table = zz.odkoduj(table)
     select = "SELECT * FROM " + table
@@ -135,9 +136,3 @@ def test():
     for hashtag in hashtags:
         table = select(hashtag)
         print(hashtag + " " + str(len(table)))
-
-
-def abc():
-    return select("COVID19")
-
-#print(datetime.strptime(abc()[1][1], "%a %b %d %H:"))
