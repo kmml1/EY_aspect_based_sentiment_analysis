@@ -48,7 +48,7 @@ def count_twitts(table):
     out["positive"] = sum_positive
     out["neutral"] = sum_neutral
     out["negative"] = sum_negative
-    return daily
+    return out
 
 
 def fetch_data(tag):
@@ -57,6 +57,7 @@ def fetch_data(tag):
         for hash_tag in hashtags:
             table = azureDBconnections.select(hash_tag)
             tmp_data = count_twitts(table)
+            return {}
     else:
         table = azureDBconnections.select(tag)
         tmp_data = count_twitts(table)
