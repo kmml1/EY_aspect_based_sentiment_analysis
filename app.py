@@ -56,7 +56,7 @@ def landing_page(hash_tag):
     if hash_tag not in hashtags:
         return {"hash_tag": "invalid"}
     #return jsonify(fetch_data(hash_tag))
-    return fetch_data(hash_tag)
+    return str(fetch_data(hash_tag))
 
 
 def db_trigger():

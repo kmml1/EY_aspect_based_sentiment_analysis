@@ -140,4 +140,4 @@ def test():
 def abc():
     return select("COVID19")
 
-print(abc()[1][1])
+#print(datetime.strptime(abc()[1][1], "%a %b %d %H:"))
