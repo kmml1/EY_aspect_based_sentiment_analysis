@@ -3,7 +3,7 @@ database = 'TwitterStorage'
 username = 'lukasikb'
 password = 'Okon123!'
 server = 'tcp:twitterstorage.database.windows.net'
-driver = '{SQL Server}'
+driver= '{ODBC Driver 17 for SQL Server}'
 # twitterApi
 CONSUMER_KEY = "cFaUmZoT5TCHEplyb99WfGYmP"
 CONSUMER_SECRET = "I8tSyQv4g9HoEdkpZndsiRfVkmc6mjpLNLR9YHnBwraWG1WPk8"
