@@ -33,23 +33,36 @@ def count_twitts(table):
             daily[str_date]["neutral"] = daily[str_date]["neutral"] + 1
         elif tmp == -1:
             daily[str_date]["negative"] = daily[str_date]["negative"] + 1
+    dailyData = []
+    sum_positive = 0
+    sum_neutral = 0
+    sum_negative = 0
+    for day in daily:
+        dailyData.append({"date": day, "positive": daily[day]["positive"], "neutral": daily[day]["neutral"],
+                          "negative": daily[day]["negative"]})
+        sum_positive = sum_positive + daily[day]["positive"]
+        sum_negative = sum_negative + daily[day]["negative"]
+        sum_neutral = sum_neutral + daily[day]["neutral"]
+    out = dict()
+    out["dailyData"] = dailyData
+    out["positive"] = sum_positive
+    out["neutral"] = sum_neutral
+    out["negative"] = sum_negative
     return daily
 
 
 def fetch_data(tag):
-    tmp_data = []
+    tmp_data = dict()
     if tag == "global":
         for hash_tag in hashtags:
-            app.logger.info('starting connection')
             table = azureDBconnections.select(hash_tag)
-
-            app.logger.info('connection end')
-            counted = count_twitts(table)
-            tmp_data.append({"hash_tag": hash_tag, "data": counted})
+            tmp_data = count_twitts(table)
     else:
         table = azureDBconnections.select(tag)
-        counted = count_twitts(table)
-        tmp_data.append({"hash_tag": tag, "data": counted})
+        tmp_data = count_twitts(table)
+
+    tmp_data["hashtag"] = tag
+    tmp_data["lastUpdate"] = str(datetime.today().year) + str(datetime.today().month) + str(datetime.today().day)
     return tmp_data
 
 
@@ -60,8 +73,6 @@ def say_hello_world():
 
 @app.route('/<hash_tag>')
 def landing_page(hash_tag):
-    app.logger.info('testing info log')
-    print('Hello world!', file=sys.stderr)
     if hash_tag == "global":
         return jsonify(fetch_data("global"))
     if hash_tag not in hashtags:
@@ -69,30 +80,24 @@ def landing_page(hash_tag):
     return jsonify(fetch_data(hash_tag))
 
 
-@app.route('/print')
-def printMsg():
-    app.logger.warning('testing warning log')
-    app.logger.error('testing error log')
-    app.logger.info('testing info log')
-    return "Check your console"
-
 @app.route('/test')
 def testFront():
     return jsonify(
         hashtag="pomidorowa",
         positive=10000,
-        neutral=5000, 
+        neutral=5000,
         negative=7000,
         lastUpdate=20210126,
         randomTweets={"positive": "Ale EZ", "neutral": "No prawie", "negative": "K@!@!"},
         dailyData=[
-            {"date":20210126, "positive":10, "neutral":5, "negative":7},
-            {"date":20210125, "positive":15, "neutral":5, "negative":0},
-            {"date":20210124, "positive":17, "neutral":5, "negative":1},
-            {"date":20210123, "positive":12, "neutral":5, "negative":2},
-            {"date":20210122, "positive":5, "neutral":5, "negative":4}
+            {"date": 20210126, "positive": 10, "neutral": 5, "negative": 7},
+            {"date": 20210125, "positive": 15, "neutral": 5, "negative": 0},
+            {"date": 20210124, "positive": 17, "neutral": 5, "negative": 1},
+            {"date": 20210123, "positive": 12, "neutral": 5, "negative": 2},
+            {"date": 20210122, "positive": 5, "neutral": 5, "negative": 4}
         ]
     )
+
 
 first_run = True
 
