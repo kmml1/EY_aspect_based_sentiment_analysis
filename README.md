@@ -20,9 +20,9 @@ Damian Wróblewski
 
 ## Stos technologiczny:
 - Python (Flask)  
-- mysql  
+- Transact-sql  
 - Azure  
-- HTML, CSS, JS
+- React
 
 ## Architektura
 ![Diagram architektury](Diagram_architektury.png)
