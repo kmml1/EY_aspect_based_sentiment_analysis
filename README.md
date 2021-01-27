@@ -28,6 +28,11 @@ Damian Wróblewski
 ![Diagram architektury](Diagram_architektury.png)
 
 ## Instrukcja reprodukcji rozwiązania
+- stworzenie bazy danych i tabel z kolumnami: (tekst, data, sentyment) dla każdego hashtagu
+- pobieranie danych z twitter api
+- analiza snetymentu przez TextAnalitics w Azure
+- wgranie wyników do bazy
+- stworzenie aplikacji webowej i backendu pobierającego dane z bazy i wyzwalającego update wyników
 
 ### Harmonogram:
 - [x]	Pobieranie i przetwarzanie danych z Twitter API, baza danych - 21.12  
