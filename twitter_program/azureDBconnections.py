@@ -24,7 +24,7 @@ def select(table):
             return lista
 
 def query(conn,query):
-    
+    query = query.replace("'","")
     with conn.cursor() as cursor:
         try:
             cursor = conn.cursor()
