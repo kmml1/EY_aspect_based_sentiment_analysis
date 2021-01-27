@@ -12,7 +12,7 @@ Damian Wróblewski
 ## Funkcjonalności:
 - Wczytywanie tweetów z api twittera do bazy danych 
 - aktualizacja bazy danych dla hasztagów codziennie o 4:30  
-- Przechowywanie tweetów przez określoną przez użytkownika ilość dni  
+- Przechowywanie tweetów z zanalizowanym sentymentem w bazie
 - Analiza sentymentu na przestrzeni czasu   
 - Losowanie przykładowych tweetów o różnym poziomie sentymentu dla danego hasztagu  
 - Zrobienie wykresów ogólnego sentymentu i sentymentu w przedziale czasowym  
