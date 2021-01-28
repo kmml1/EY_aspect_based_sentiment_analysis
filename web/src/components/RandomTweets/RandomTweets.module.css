@@ -1,9 +1,9 @@
 .container {
-    margin: 50px 0;
+    margin: 50px 50px;
 }
 
 .card {
-    margin: 0 2% !important;
+    margin: 1% 0 !important;
 }
 
 .positive {
@@ -16,4 +16,4 @@
 
 .negative {
     border-bottom: 10px solid rgba( 255, 0, 0, 0.5);
-}
+} 

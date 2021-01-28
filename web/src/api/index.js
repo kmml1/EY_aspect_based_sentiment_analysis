@@ -1,30 +1,40 @@
 import axios from 'axios';
 
-const url = 'https://covid19.mathdro.id/api';
+const apiUrl = `https://semanticanalizisapp.azurewebsites.net/`;
 
-export const fetchData = async () => {
+export const fetchData = async (hashtag) => {
+    let changeableUrl = apiUrl;
+
+    if(hashtag) {
+        changeableUrl = `${apiUrl}/${hashtag}`
+    } else {
+        changeableUrl = `${apiUrl}/global`
+    }
+
     try {
-        //const { data: {confirmed, recovered, deaths, lastUpdate} } = await axios.get(url);
-
-        return {
-            positive:10000,
-            neutral:15000,
-            negative:5000,
-            lastUpdate:"22.01.2021"
-        };
-
-    } catch (error) {
+        const { data: {positive, neutral, negative, lastUpdate, randomTweets }} = await axios.get(changeableUrl);
         
+        return { positive, neutral, negative, lastUpdate, randomTweets };
+    } catch (error) {
+        console.log(error);
     }
 }
 
-export const fetchDailyData = async () => {
+export const fetchDailyData = async (hashtag) => {
+    let changeableUrl = apiUrl;
+
+    if(hashtag) {
+        changeableUrl = `${apiUrl}/${hashtag}`
+    } else {
+        changeableUrl = `${apiUrl}/global`
+    }
+
+
     try {
-        const { data } = await axios.get('https://api.covidtracking.com/v1/us/daily.json');
-  
-        return data.map(({ positive, recovered, death, dateChecked: date }) => ({ confirmed: positive, recovered, deaths: death, date }));
+        const { data: {dailyData} } = await axios.get(changeableUrl);
 
+        return dailyData;
     } catch (error) {
-
+        console.log(error);
     }
 }

@@ -6,7 +6,7 @@ import cx from 'classnames';
 import styles from './Cards.module.css';
 
 const Cards = ({ data: { positive, neutral, negative, lastUpdate } }) => {
-    if (!positive) {
+    if (!lastUpdate) {
         return 'Loading...';
     }
     return (
@@ -14,31 +14,31 @@ const Cards = ({ data: { positive, neutral, negative, lastUpdate } }) => {
             <Grid container spacing={3} justify="center">
                 <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.positive)}>
                     <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Positive</Typography>
+                        <Typography color="textSecondary" gutterBottom>Pozytywne</Typography>
                         <Typography variant="h5">
-                            <CountUp start={0} end={positive} duration={2.5} separator=',' />
+                            <CountUp start={0} end={positive} duration={2.5} separator="," />
                         </Typography>
-                        <Typography color="textSecondary">{lastUpdate}</Typography>
+                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
                         <Typography variant="body2">Liczba pozytywnych tweetów</Typography>
                     </CardContent>
                 </Grid>
                 <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.neutral)}>
                     <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Neutral</Typography>
+                        <Typography color="textSecondary" gutterBottom>Neutralne</Typography>
                         <Typography variant="h5">
-                            <CountUp start={0} end={neutral} duration={2.5} separator=',' />
+                            <CountUp start={0} end={neutral} duration={2.5} separator="," />
                         </Typography>
-                        <Typography color="textSecondary">{lastUpdate}</Typography>
+                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
                         <Typography variant="body2">Liczba neutralnych tweetów</Typography>
                     </CardContent>
                 </Grid>
                 <Grid item component={Card} xs={12} md={3} className={cx(styles.card, styles.negative)}>
                     <CardContent>
-                        <Typography color="textSecondary" gutterBottom>Negative</Typography>
+                        <Typography color="textSecondary" gutterBottom>Negatywne</Typography>
                         <Typography variant="h5">
-                            <CountUp start={0} end={negative} duration={2.5} separator=',' />
+                            <CountUp start={0} end={negative} duration={2.5} separator="," />
                         </Typography>
-                        <Typography color="textSecondary">{lastUpdate}</Typography>
+                        <Typography color="textSecondary">{new Date(lastUpdate).toDateString()}</Typography>
                         <Typography variant="body2">Liczba negatywnych tweetów</Typography>
                     </CardContent>
                 </Grid>
